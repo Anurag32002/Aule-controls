@@ -38,12 +38,7 @@ The target matrices (`x_target_data`, `y_target_data`, `theta_target_data`) must
 - The **first column** contains time values.
 - The **second column** contains the corresponding target values.
 
-### Example
-```matlab
-timeVector = (0:10:100)'; % Time values
-x_target_data = [timeVector, rand(length(timeVector), 1) * 10 - 5]; % Random x_target values
-y_target_data = [timeVector, rand(length(timeVector), 1) * 10 - 5]; % Random y_target values
-theta_target_data = [timeVector, rand(length(timeVector), 1) * 2 * pi - pi]; % Random theta_target values
+
 ## Simulation Workflow
 
 ### Run the MATLAB Script
