@@ -17,57 +17,30 @@ Define and update target matrices using MATLAB for dynamic simulation.
 
 ---
 
-## MATLAB Script for Dynamic Simulation
-The following script executes the simulation, dynamically updates target values, and pauses to allow inspection of results:
+## Simulink Model Configuration
+1. **Replace Constant Blocks**:  
+   Use **From Workspace** blocks instead of Constant blocks for `x_target`, `y_target`, and `theta_target`.
 
+2. **Configure From Workspace Blocks**:  
+   - Set the **Variable Name** to:
+     - `x_target_data` for the `x_target` block.
+     - `y_target_data` for the `y_target` block.
+     - `theta_target_data` for the `theta_target` block.
+   - Set the **Sample Time** to `-1` (inherited).
+
+3. **Verify Connections**:  
+   Connect the outputs of the **From Workspace** blocks to the positive inputs of the respective **Error** blocks.
+
+---
+
+## Dynamic Target Matrix Format
+The target matrices (`x_target_data`, `y_target_data`, `theta_target_data`) must follow this format:
+- The **first column** contains time values.
+- The **second column** contains the corresponding target values.
+
+### Example
 ```matlab
-% Name of the Simulink model
-modelName = 'DockingSimulationModel';
-
-% Load the system (only if not already loaded)
-if ~bdIsLoaded(modelName)
-    load_system(modelName);
-end
-
-% Set simulation parameters
-simTime = 10;       % Duration of each simulation step (in seconds)
-totalTime = 100;    % Total time to run (in seconds)
-stepTime = 10;      % Time interval between updates (in seconds)
-pauseTime = 5;      % Pause duration between updates (in seconds)
-
-% Initialize time and target data
-timeVector = (0:stepTime:totalTime)';  % Time vector for target updates
-x_target_data = [timeVector, zeros(length(timeVector), 1)];  % Initialize x_target matrix
-y_target_data = [timeVector, zeros(length(timeVector), 1)];  % Initialize y_target matrix
-theta_target_data = [timeVector, zeros(length(timeVector), 1)];  % Initialize theta_target matrix
-
-% Update target values dynamically
-for i = 1:length(timeVector)
-    % Generate random target values
-    x_target = rand * 10 - 5;       % Random x (-5 to 5)
-    y_target = rand * 10 - 5;       % Random y (-5 to 5)
-    theta_target = rand * 2 * pi - pi;  % Random theta (-pi to pi)
-
-    % Assign targets to the data matrices
-    x_target_data(i, 2) = x_target;  % Update x_target value
-    y_target_data(i, 2) = y_target;  % Update y_target value
-    theta_target_data(i, 2) = theta_target;  % Update theta_target value
-
-    % Assign updated matrices to the workspace
-    assignin('base', 'x_target_data', x_target_data);
-    assignin('base', 'y_target_data', y_target_data);
-    assignin('base', 'theta_target_data', theta_target_data);
-
-    % Run the simulation for the specified time
-    sim(modelName, 'StopTime', num2str(simTime));
-
-    % Display the updated targets
-    fprintf('Time = %.1f seconds: x_target = %.2f, y_target = %.2f, theta_target = %.2f\n', ...
-            timeVector(i), x_target, y_target, theta_target);
-
-    % Pause to observe results
-    pause(pauseTime);
-end
-
-% Keep the system open for further interaction
-disp('Simulation complete. Model remains open for further interaction.');
+timeVector = (0:10:100)'; % Time values
+x_target_data = [timeVector, rand(length(timeVector), 1) * 10 - 5]; % Random x_target values
+y_target_data = [timeVector, rand(length(timeVector), 1) * 10 - 5]; % Random y_target values
+theta_target_data = [timeVector, rand(length(timeVector), 1) * 2 * pi - pi]; % Random theta_target values
