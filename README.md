@@ -1,21 +1,24 @@
 # Docking Simulation with Dynamic Target Updates in Simulink
 
 ## Overview
-This project simulates a docking scenario where the chaser spacecraft dynamically adjusts its trajectory to align with changing target positions and orientations. The target values (`x_target`, `y_target`, `theta_target`) are updated dynamically during the simulation using **From Workspace blocks** in Simulink.
+This project simulates a docking scenario where a chaser spacecraft dynamically adjusts its trajectory to align with changing target positions and orientations. The target values (`x_target`, `y_target`, `theta_target`) are updated dynamically during the simulation using **From Workspace** blocks in Simulink.
 
 ---
 
 ## Prerequisites
-- **Simulink Model**: Ensure your Simulink model (`DockingSimulationModel`) is set up with:
-  - Integrators for dynamics.
-  - LQR Controller for control input calculation.
-  - From Workspace blocks for dynamically updated targets.
-- **MATLAB Workspace Variables**: Use MATLAB to compute and update the target matrices.
+
+### Simulink Model Setup
+- **Integrators**: For modeling spacecraft dynamics.
+- **LQR Controller**: For control input calculations.
+- **From Workspace Blocks**: To dynamically update target values.
+
+### MATLAB Workspace Variables
+Define and update target matrices using MATLAB for dynamic simulation.
 
 ---
 
 ## MATLAB Script for Dynamic Simulation
-The following MATLAB script runs the simulation in steps, dynamically updates target values, and pauses to observe the results in the **Scope** and **XY Graph**:
+The following script executes the simulation, dynamically updates target values, and pauses to allow inspection of results:
 
 ```matlab
 % Name of the Simulink model
@@ -62,4 +65,9 @@ for i = 1:length(timeVector)
     fprintf('Time = %.1f seconds: x_target = %.2f, y_target = %.2f, theta_target = %.2f\n', ...
             timeVector(i), x_target, y_target, theta_target);
 
+    % Pause to observe results
+    pause(pauseTime);
+end
 
+% Keep the system open for further interaction
+disp('Simulation complete. Model remains open for further interaction.');
