@@ -44,3 +44,43 @@ timeVector = (0:10:100)'; % Time values
 x_target_data = [timeVector, rand(length(timeVector), 1) * 10 - 5]; % Random x_target values
 y_target_data = [timeVector, rand(length(timeVector), 1) * 10 - 5]; % Random y_target values
 theta_target_data = [timeVector, rand(length(timeVector), 1) * 2 * pi - pi]; % Random theta_target values
+## Simulation Workflow
+
+### Run the MATLAB Script
+- Execute the script to dynamically update target matrices and simulate in steps.
+
+### Observe Results
+- Use the **Scope** to monitor:
+  - Orientation (`θ`)
+  - Energy consumption.
+- Use the **XY Graph** to observe the chaser's trajectory.
+
+### Pause Between Runs
+- The script pauses for a specified duration (`pauseTime`) to allow for inspection.
+
+---
+
+## Expected Outputs
+
+### XY Graph
+- Displays the trajectory of the chaser spacecraft moving toward dynamically updated targets.
+
+### Theta Scope
+- Shows the chaser's orientation (`θ`) converging to the target orientation.
+
+### Energy Scope
+- Displays cumulative energy consumption over time.
+
+---
+
+## Customization
+
+### Change Target Update Frequency
+- Modify `stepTime` to adjust how frequently targets are updated.
+
+### Adjust Pause Duration
+- Change `pauseTime` to allow more or less time for result inspection.
+
+### Set Specific Targets
+- Replace random target generation with specific values if needed.
+
