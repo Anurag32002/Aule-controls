@@ -61,16 +61,18 @@ for i = 1:length(timeVector)
     % Display the updated targets
     fprintf('Time = %.1f seconds: x_target = %.2f, y_target = %.2f, theta_target = %.2f\n', ...
             timeVector(i), x_target, y_target, theta_target);
-## Simulation Workflow
 
-### Run the MATLAB Script:
+
+ ## Simulation Workflow
+
+ ### Run the MATLAB Script:
 - Execute the script to dynamically update the target matrices and run the Simulink model in chunks.
 
-### Observe Results:
+ ### Observe Results:
 - Use the **Scope** to monitor orientation (\(\theta\)) and energy consumption.
 - Use the **XY Graph** to observe the trajectory of the chaser.
 
-### Pause Between Runs:
+  ### Pause Between Runs:
 - The script pauses for a specified duration (`pauseTime`) after each simulation step to allow time for analysis.
 
 ---
